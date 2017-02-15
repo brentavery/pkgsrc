@@ -21,7 +21,7 @@ CONFLICTS=	pbulk<0.39
 CPPFLAGS+=	-Wno-clobbered
 .endif
 
-CPPFLAGS.Linux+=	-D_GNU_SOURCE
+CPPFLAGS.Linux+=	-D_GNU_SOURCE -Wno-unused-result
 LDFLAGS.SunOS+=		-lsocket -lresolv
 
 BUILD_DIRS=	lib pbuild presolve pscan
