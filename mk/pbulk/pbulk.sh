@@ -33,6 +33,7 @@ fi
 : ${PBULKPREFIX:=/usr/pbulk}
 : ${PBULKWORK:=${TMPDIR}/work-pbulk}
 
+: ${PREFIX:=/usr/pkg}
 : ${PACKAGES:=/mnt/packages}
 : ${BULKLOG:=/mnt/bulklog}
 
@@ -130,7 +131,7 @@ prefix=${PREFIX}
 varbase=${PREFIX}/var
 pkgdb=${PREFIX}/pkgdb
 EOF
-elif [ -n "${PREFIX}" ]; then
+elif [ -z "$native" ]; then
 # Non-default prefix:
 cat >> ${PBULKPREFIX}/etc/pbulk.conf.over <<EOF
 # Non-default prefix overrides:
