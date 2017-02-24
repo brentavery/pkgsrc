@@ -78,7 +78,6 @@ post-install:
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${DOCDIR}/arm
 	${INSTALL_DATA} ${FILESDIR}/named.conf ${DESTDIR}${PREFIX}/share/examples/bind9
-	${RM} -f ${DESTDIR}${PKG_SYSCONFDIR}/bind.keys
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/krb5.buildlink3.mk"
