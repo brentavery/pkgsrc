@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2017/01/18 11:07:13 kleink Exp $
+# $NetBSD: Makefile,v 1.27 2017/02/28 15:20:08 ryoon Exp $
 
 DISTNAME=	calibre-1.48.0
-PKGREVISION=	22
+PKGREVISION=	24
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
 EXTRACT_SUFX=	.tar.xz
@@ -18,19 +18,17 @@ DEPENDS+=	xdg-utils>=1.0.2:../../misc/xdg-utils
 DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 DEPENDS+=	${PYPKGPREFIX}-lxml>=2.2.1:../../textproc/py-lxml
 DEPENDS+=	${PYPKGPREFIX}-beautifulsoup>=3.0.5:../../www/py-beautifulsoup
+DEPENDS+=	${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
 DEPENDS+=	${PYPKGPREFIX}-dns-[0-9]*:../../net/py-dns
 DEPENDS+=	${PYPKGPREFIX}-mechanize>=0.1.11nb1:../../www/py-mechanize
 DEPENDS+=	${PYPKGPREFIX}-cssselect>=0.7.1:../../textproc/py-cssselect
 DEPENDS+=	${PYPKGPREFIX}-cssutils>=0.9.9:../../textproc/py-cssutils
 # Let's depend on the ones we have in pkgsrc instead of the bundled ones.
-DEPENDS+=	${PYPKGPREFIX}-Pdf-[0-9]*:../../print/py-Pdf
 DEPENDS+=	${PYPKGPREFIX}-cherrypy-[0-9]*:../../www/py-cherrypy
 DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
 DEPENDS+=	${PYPKGPREFIX}-chardet-[0-9]*:../../converters/py-chardet
 DEPENDS+=	${PYPKGPREFIX}-netifaces-[0-9]*:../../net/py-netifaces
 DEPENDS+=	${PYPKGPREFIX}-apsw-[0-9]*:../../databases/py-apsw
-
-PYTHON_VERSIONED_DEPENDENCIES=	dateutil
 
 # We also need the distfile for qt4-libs to extract some private header files
 # If QTVERSION changes, the distinfo file needs to be updated too.
@@ -96,7 +94,7 @@ MAKE_ENV+=		PODOFO_LIB_DIR=${BUILDLINK_PREFIX.podofo}/lib
 
 # Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 pre-configure:
-	cd ${WRKSRC} && rm -rf src/cherrypy src/pyPdf src/html5lib src/chardet
+	cd ${WRKSRC} && rm -rf src/cherrypy src/html5lib src/chardet
 
 # Turn off x bits on non-executable files.
 post-extract:
@@ -120,7 +118,6 @@ post-install:
 	    ${DESTDIR}${PREFIX}/share/doc/calibre
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/versioned_dependencies.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/chmlib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libusb+=	libusb>=0.1.12

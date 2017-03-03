@@ -1,15 +1,16 @@
-# $NetBSD: Makefile,v 1.1 2016/09/18 01:02:43 kamil Exp $
+# $NetBSD: Makefile,v 1.3 2017/02/22 21:22:10 wiz Exp $
 
-DISTNAME=	nim-0.14.2
+DISTNAME=	nim-0.16.0
 CATEGORIES=	lang
 MASTER_SITES=	http://nim-lang.org/download/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	cfkoch@edgebsd.org
+HOMEPAGE=	https://nim-lang.org/
 COMMENT=	The Nim programming language
 LICENSE=	mit
 
-AUTO_MKDIRS=	yes
+INSTALLATION_DIRS=	bin
 
 do-build:
 	cd ${WRKSRC} && sh ./build.sh
@@ -23,6 +24,6 @@ do-install:
 
 do-test:
 	cd ${WRKSRC} && ./bin/nim compile koch.nim
-	cd ${WRKSRC} && LD_LIBRARY_PATH=$PREFIX/lib ./koch tests
+	cd ${WRKSRC} && LD_LIBRARY_PATH=${PREFIX}/lib ./koch tests
 
 .include "../../mk/bsd.pkg.mk"

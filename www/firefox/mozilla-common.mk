@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.85 2017/01/01 14:44:03 wiz Exp $
+# $NetBSD: mozilla-common.mk,v 1.88 2017/02/20 12:22:53 ryoon Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -11,7 +11,7 @@
 BUILD_DEPENDS+=		yasm>=1.1:../../devel/yasm
 
 # Enable Google widevine CDM. This requires external libwidevinecdm.so.
-CONFIGURE_ARGS+=	--enable-eme=widevine
+#CONFIGURE_ARGS+=	--enable-eme=widevine
 .endif
 
 HAS_CONFIGURE=		yes
@@ -48,7 +48,6 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}browser/extensions/loop/run-all-loop-tests
 CONFIGURE_ARGS+=	--enable-pie
 CONFIGURE_ARGS+=	--disable-tests
 CONFIGURE_ARGS+=	--with-pthreads
-CONFIGURE_ARGS+=	--enable-default-toolkit=cairo-gtk2
 CONFIGURE_ARGS+=	--enable-system-cairo
 CONFIGURE_ARGS+=	--enable-system-pixman
 CONFIGURE_ARGS+=	--with-system-libvpx
@@ -194,7 +193,7 @@ BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.10
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nss+=	nss>=3.23nb1
+BUILDLINK_API_DEPENDS.nss+=	nss>=3.28.1
 .include "../../devel/nss/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
@@ -205,6 +204,7 @@ BUILDLINK_API_DEPENDS.libvpx+=	libvpx>=1.3.0
 .include "../../multimedia/libvpx/buildlink3.mk"
 .include "../../net/libIDL/buildlink3.mk"
 .include "../../textproc/hunspell/buildlink3.mk"
+# gtk2 needed even if --enable-default-toolkit=cairo-gtk3
 BUILDLINK_API_DEPENDS.gtk2+=  gtk2+>=2.18.3nb1
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../multimedia/ffmpeg3/buildlink3.mk"

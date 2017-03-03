@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.77 2016/11/18 12:41:35 tsutsui Exp $
+# $NetBSD: Makefile,v 1.79 2017/01/29 07:54:20 tsutsui Exp $
 #
 
 DISTNAME=		poppler-${VERSION}

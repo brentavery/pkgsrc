@@ -1,22 +1,26 @@
-# $NetBSD: Makefile,v 1.120 2016/12/19 09:02:59 wiz Exp $
+# $NetBSD: Makefile,v 1.124 2017/02/27 10:42:34 wiz Exp $
 
-DISTNAME=		setuptools-32.1.0
-PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
-CATEGORIES=		devel python
-MASTER_SITES=		${MASTER_SITE_PYPI:=s/setuptools/}
+DISTNAME=	setuptools-34.3.0
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+CATEGORIES=	devel python
+MASTER_SITES=	${MASTER_SITE_PYPI:=s/setuptools/}
+EXTRACT_SUFX=	.zip
 
-MAINTAINER=		joerg@NetBSD.org
-HOMEPAGE=		https://pypi.python.org/pypi/setuptools
-COMMENT=		New Python packaging system
-LICENSE=		python-software-foundation OR zpl-2.0
+MAINTAINER=	joerg@NetBSD.org
+HOMEPAGE=	https://pypi.python.org/pypi/setuptools
+COMMENT=	New Python packaging system
+LICENSE=	python-software-foundation OR zpl-2.0
 
 DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
-# not sure if this would introduce a dependency cycle
-#BUILD_DEPENDS+=		${PYPKGPREFIX}-test-runner-[0-9]*:../../devel/py-test-runner
-
-PLIST_SUBST+=		EGG_INFODIR=${EGG_NAME}-py${PYVERSSUFFIX}.egg-info
+DEPENDS+=		${PYPKGPREFIX}-appdirs-[0-9]*:../../devel/py-appdirs
+DEPENDS+=		${PYPKGPREFIX}-packaging-[0-9]*:../../devel/py-packaging
+DEPENDS+=		${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
+# needed for tests, but would introduce dependency cycle
+#BUILD_DEPENDS+=	${PYPKGPREFIX}-test-runner-[0-9]*:../../devel/py-test-runner
 
 REPLACE_PYTHON+=	setuptools/command/easy_install.py
+
+PYSETUPTESTTARGET=	pytest
 
 # upstream often forgets deleting files, and packages on Windows,
 # so permissions are usually wrong

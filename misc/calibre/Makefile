@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.167 2017/01/22 15:10:41 wiz Exp $
+# $NetBSD: Makefile,v 1.174 2017/02/20 17:00:36 wiz Exp $
 
-DISTNAME=	calibre-2.77.0
+DISTNAME=	calibre-2.79.1
 CATEGORIES=	misc
 #MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=calibre/}
 MASTER_SITES=	http://download.calibre-ebook.com/${PKGVERSION_NOREV}/
@@ -19,21 +19,20 @@ DEPENDS+=	xdg-utils>=1.0.2:../../misc/xdg-utils
 #DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 DEPENDS+=	${PYPKGPREFIX}-lxml>=3.2.1:../../textproc/py-lxml
 DEPENDS+=	${PYPKGPREFIX}-beautifulsoup>=3.0.5:../../www/py-beautifulsoup
+DEPENDS+=	${PYPKGPREFIX}-dateutil>=1.4.1:../../time/py-dateutil
 DEPENDS+=	${PYPKGPREFIX}-dns>=1.6.0:../../net/py-dns
 DEPENDS+=	${PYPKGPREFIX}-mechanize>=0.1.11nb1:../../www/py-mechanize
 DEPENDS+=	${PYPKGPREFIX}-cssselect>=0.7.1:../../textproc/py-cssselect
 DEPENDS+=	${PYPKGPREFIX}-cssutils>=0.9.9:../../textproc/py-cssutils
 DEPENDS+=	${PYPKGPREFIX}-psutil>=0.6.1:../../sysutils/py-psutil
-## Let's depend on the ones we have in pkgsrc instead of the bundled ones.
-#DEPENDS+=	${PYPKGPREFIX}-Pdf-[0-9]*:../../print/py-Pdf
+# Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 DEPENDS+=	${PYPKGPREFIX}-cherrypy-[0-9]*:../../www/py-cherrypy
-DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
+# not sure if pkgsrc version would be ok or not
 #DEPENDS+=	${PYPKGPREFIX}-chardet-[0-9]*:../../converters/py-chardet
+# includes own, modified copy of html5lib
+#DEPENDS+=	${PYPKGPREFIX}-html5lib-[0-9]*:../../textproc/py-html5lib
 DEPENDS+=	${PYPKGPREFIX}-netifaces>=0.8:../../net/py-netifaces
 DEPENDS+=	${PYPKGPREFIX}-apsw>=3.7.17:../../databases/py-apsw
-
-# dateutil>=1.4.1
-PYTHON_VERSIONED_DEPENDENCIES=	dateutil
 
 EXTRACT_USING=	bsdtar
 
@@ -93,7 +92,7 @@ MAKE_ENV+=		SIP_BIN=${BUILDLINK_PREFIX.py-sip}/bin/sip${PYVERSSUFFIX}
 
 # Let's depend on the ones we have in pkgsrc instead of the bundled ones.
 pre-configure:
-	cd ${WRKSRC} && rm -rf src/cherrypy src/pyPdf src/html5lib src/chardet
+	cd ${WRKSRC} && rm -rf src/cherrypy
 
 # Turn off x bits on non-executable files.
 post-extract:
@@ -114,7 +113,6 @@ post-install:
 	${RM} ${DESTDIR}${PREFIX}/bin/calibre-uninstall
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/versioned_dependencies.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.chmlib+=	chmlib>=0.40
 .include "../../devel/chmlib/buildlink3.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2017/01/16 09:19:38 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2017/02/27 10:24:11 wiz Exp $
 
-DISTNAME=	todoman-1.8.0
+DISTNAME=	todoman-2.1.0
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_PYPI:=t/todoman/}
 
@@ -11,14 +11,16 @@ LICENSE=	mit
 
 DEPENDS+=	${PYPKGPREFIX}-ansi-[0-9]*:../../misc/py-ansi
 DEPENDS+=	${PYPKGPREFIX}-atomicwrites-[0-9]*:../../devel/py-atomicwrites
+DEPENDS+=	${PYPKGPREFIX}-configobj-[0-9]*:../../devel/py-configobj
+DEPENDS+=	${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
 DEPENDS+=	${PYPKGPREFIX}-icalendar-[0-9]*:../../time/py-icalendar
 DEPENDS+=	${PYPKGPREFIX}-parsedatetime-[0-9]*:../../time/py-parsedatetime
 DEPENDS+=	${PYPKGPREFIX}-click>=6.0:../../devel/py-click
 DEPENDS+=	${PYPKGPREFIX}-urwid-[0-9]*:../../devel/py-urwid
 DEPENDS+=	${PYPKGPREFIX}-xdg-[0-9]*:../../devel/py-xdg
-# should be BUILD_DEPENDS -- fixed upstream post 1.6.3
-DEPENDS+=	${PYPKGPREFIX}-setuptools_scm-[0-9]*:../../devel/py-setuptools_scm
+BUILD_DEPENDS+=	${PYPKGPREFIX}-setuptools_scm-[0-9]*:../../devel/py-setuptools_scm
 # TEST_DEPENDS
+BUILD_DEPENDS+=	${PYPKGPREFIX}-freezegun-[0-9]*:../../devel/py-freezegun
 BUILD_DEPENDS+=	${PYPKGPREFIX}-hypothesis-[0-9]*:../../devel/py-hypothesis
 BUILD_DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 BUILD_DEPENDS+=	${PYPKGPREFIX}-test-[0-9]*:../../devel/py-test

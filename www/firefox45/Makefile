@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.17 2017/01/21 20:06:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.21 2017/02/12 06:26:08 ryoon Exp $
 
 MOZILLA_PKG_NAME=	firefox45
 FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
-MOZ_BRANCH=	45.6
+MOZ_BRANCH=	45.7
 MOZ_BRANCH_MINOR=	.0esr
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
@@ -65,6 +65,7 @@ SUBST_VARS.sys-dic=	PREFIX
 
 post-extract:
 	mv ${WRKSRC}/gfx/ycbcr/yuv_row_arm.s ${WRKSRC}/gfx/ycbcr/yuv_row_arm.S
+	${CP} files/cubeb_oss.c ${WRKSRC}/media/libcubeb/src/cubeb_oss.c
 
 pre-configure:
 	cd ${WRKSRC} && mkdir ${OBJDIR}

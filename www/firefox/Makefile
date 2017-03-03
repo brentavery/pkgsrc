@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.279 2017/01/25 13:24:51 ryoon Exp $
+# $NetBSD: Makefile,v 1.287 2017/02/24 21:54:52 maya Exp $
 
 FIREFOX_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
 MOZ_BRANCH=		51.0
-MOZ_BRANCH_MINOR=	
+MOZ_BRANCH_MINOR=	.1
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES+=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -36,6 +37,13 @@ ALL_ENV+=		MOZILLA_PKG_NAME=firefox
 # Avoid ld "invalid section index" errors.
 BUILDLINK_TRANSFORM.SunOS+=	rm:-fdata-sections
 BUILDLINK_TRANSFORM.SunOS+=	rm:-ffunction-sections
+
+SUBST_CLASSES+=			dfly_malloc_h
+SUBST_STAGE.dfly_malloc_h=	pre-configure
+SUBST_MESSAGE.dfly_malloc_h=	Dont include malloc.h on dragonflybsd
+SUBST_SED.dfly_malloc_h=	-e 's,HAVE_MALLOC_H,HAVE_MALLOC_H \&\& !defined(__DragonFly__),g'
+SUBST_FILES.dfly_malloc_h=	media/libav/libavutil/mem.c
+SUBST_FILES.dfly_malloc_h+=	media/ffvpx/libavutil/mem.c
 
 LDFLAGS.DragonFly=	-lplc4 -lnspr4
 LDFLAGS.FreeBSD=	-lplc4 -lnspr4

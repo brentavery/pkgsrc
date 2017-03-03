@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2016/12/30 23:29:14 maya Exp $
+# $NetBSD: Makefile,v 1.7 2017/02/25 02:51:43 maya Exp $
 
-DISTNAME=	streamlink-0.2.0
+DISTNAME=	streamlink-0.3.2
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=streamlink/}
 GITHUB_TAG=	${PKGVERSION_NOREV}
@@ -10,16 +10,18 @@ HOMEPAGE=	https://streamlink.github.io/
 COMMENT=	Tool that pipes video streams into a video player
 LICENSE=	2-clause-bsd
 
-DEPENDS+=	${PYPKGPREFIX}-requests-[0-9]*:../../devel/py-requests
+
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 .include "../../lang/python/egg.mk"
 
-DEPENDS+=	${PYPKGPREFIX}-singledispatch-[0-9]*:../../devel/py-singledispatch
-DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
-DEPENDS+=	${PYPKGPREFIX}-futures-[0-9]*:../../devel/py-futures
 DEPENDS+=	${PYPKGPREFIX}-cryptodome>=3.4.3:../../security/py-cryptodome
+DEPENDS+=	${PYPKGPREFIX}-requests-[0-9]*:../../devel/py-requests
+DEPENDS+=	${PYPKGPREFIX}-iso-639-[0-9]*:../../devel/py-iso-639
+DEPENDS+=	${PYPKGPREFIX}-iso3166-[0-9]*:../../devel/py-iso3166
 
 EGG_NAME=	${PKGNAME_NOREV}
+
 
 REPLACE_PYTHON+=	src/streamlink/packages/flashmedia/flv.py
 REPLACE_PYTHON+=	src/streamlink/packages/flashmedia/tag.py

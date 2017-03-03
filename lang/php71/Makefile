@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2017/01/22 11:42:22 maya Exp $
+# $NetBSD: Makefile,v 1.8 2017/02/18 13:13:07 taca Exp $
 
 #
 # We can't omit PKGNAME here to handle PKG_OPTIONS.
@@ -44,9 +44,9 @@ INSTALLATION_DIRS+=	${CGIDIR} ${PHP_EXTENSION_DIR} ${EGDIR} share/php
 # segfault generating phar.phar for i386 & SPARC
 # revisit this if builtin PCRE is updated beyond PCRE1 8.38
 # https://bugs.php.net/bug.php?id=73880
-#.if ${MACHINE_ARCH} != "x86_64"
+.if ${MACHINE_ARCH} != "x86_64"
 CONFIGURE_ARGS+=	--without-pcre-jit
-#.endif
+.endif
 
 # Make sure modules can link correctly
 .if ${OPSYS} == "Darwin"

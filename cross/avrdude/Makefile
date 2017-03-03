@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.40 2015/01/18 06:18:58 mef Exp $
+# $NetBSD: Makefile,v 1.42 2017/02/21 16:05:53 joerg Exp $
 
-DISTNAME=		avrdude-6.1
-PKGREVISION=		1
+DISTNAME=		avrdude-6.3
 CATEGORIES=		cross
 MASTER_SITES=		http://download.savannah.gnu.org/releases/avrdude/
 
@@ -22,6 +21,7 @@ MAKE_JOBS_SAFE=		no
 GNU_CONFIGURE=		yes
 TEXINFO_REQD=		4.9
 USE_TOOLS+=		autoconf automake autoreconf makeinfo texi2html yacc lex
+USE_LIBTOOL=		yes
 INFO_FILES=		yes
 EGDIR=			${PREFIX}/share/examples/avrdude
 CONF_FILES_PERMS=	${EGDIR}/avrdude.conf ${PKG_SYSCONFDIR}/avrdude.conf \

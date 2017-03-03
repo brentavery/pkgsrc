@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2017/01/21 20:06:51 ryoon Exp $
+# $NetBSD: Makefile,v 1.52 2017/02/24 21:54:52 maya Exp $
 
-DISTNAME=	mpv-0.23.0
-PKGREVISION=	2
+DISTNAME=	mpv-0.24.0
+PKGREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mpv-player/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -50,11 +50,14 @@ post-install:
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
+.include "../../x11/libXrandr/buildlink3.mk"
+.include "../../x11/libXScrnSaver/buildlink3.mk"
 .include "../../x11/libXv/buildlink3.mk"
 .include "../../x11/libXxf86vm/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .endif
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/waf/waf.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"

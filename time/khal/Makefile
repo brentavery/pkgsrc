@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2016/10/07 08:20:43 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2017/02/20 17:00:37 wiz Exp $
 
-DISTNAME=		khal-0.8.4
+DISTNAME=		khal-0.9.2
 CATEGORIES=		time net
 MASTER_SITES=		${MASTER_SITE_PYPI:=k/khal/}
 
@@ -9,8 +9,10 @@ HOMEPAGE=		https://github.com/geier/khal
 COMMENT=		CLI calendar application built around CalDAV
 LICENSE=		mit
 
+DEPENDS+=		${PYPKGPREFIX}-atomicwrites-[0-9]*:../../devel/py-atomicwrites
 DEPENDS+=		${PYPKGPREFIX}-click>=3.2:../../devel/py-click
 DEPENDS+=		${PYPKGPREFIX}-configobj-[0-9]*:../../devel/py-configobj
+DEPENDS+=		${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
 DEPENDS+=		${PYPKGPREFIX}-icalendar>=3.9.2:../../time/py-icalendar
 DEPENDS+=		${PYPKGPREFIX}-pkginfo-[0-9]*:../../devel/py-pkginfo
 BUILD_DEPENDS+=		${PYPKGPREFIX}-setuptools_scm-[0-9]*:../../devel/py-setuptools_scm
@@ -28,8 +30,6 @@ BUILD_DEPENDS+=		${PYPKGPREFIX}-test-[0-9]*:../../devel/py-test
 
 PYTHON_VERSIONS_INCOMPATIBLE=	27 # not supported as of 0.8.0
 
-PYTHON_VERSIONED_DEPENDENCIES=	dateutil
-
 INSTALLATION_DIRS=	share/doc/khal
 REPLACE_PYTHON+=	khal/*/*.py
 REPLACE_PYTHON+=	khal/*.py
@@ -42,5 +42,4 @@ do-test:
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
-.include "../../lang/python/versioned_dependencies.mk"
 .include "../../mk/bsd.pkg.mk"

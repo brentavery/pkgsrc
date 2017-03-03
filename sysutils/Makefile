@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.686 2017/01/05 16:44:02 fhajny Exp $
+# $NetBSD: Makefile,v 1.691 2017/02/17 21:23:42 jmmv Exp $
 #
 
 COMMENT=	System utilities
@@ -387,6 +387,7 @@ SUBDIR+=	openxenmanager
 SUBDIR+=	osname
 SUBDIR+=	p5-Config-Augeas
 SUBDIR+=	p5-Config-Simple
+SUBDIR+=	p5-Daemon-Generic
 SUBDIR+=	p5-File-Copy-Recursive
 SUBDIR+=	p5-File-Inplace
 SUBDIR+=	p5-File-Remove
@@ -414,6 +415,7 @@ SUBDIR+=	p5-Sys-SigAction
 SUBDIR+=	p5-Sys-Syslog
 SUBDIR+=	p5-Sys-Utmp
 SUBDIR+=	p5-UPS-Nut
+SUBDIR+=	p5-Unburden-Home-Dir
 SUBDIR+=	p5-Unix-ConfigFile
 SUBDIR+=	p5-Unix-Statgrab
 SUBDIR+=	p5-Unix-Syslog
@@ -479,6 +481,7 @@ SUBDIR+=	rsyslog-libgcrypt
 SUBDIR+=	rsyslog-mysql
 SUBDIR+=	rsyslog-pgsql
 SUBDIR+=	rsyslog-rabbitmq
+SUBDIR+=	rsyslog-relp
 SUBDIR+=	rsyslog-snmp
 SUBDIR+=	rtty
 SUBDIR+=	ruby-activesambaldap
@@ -500,6 +503,7 @@ SUBDIR+=	safetynet
 SUBDIR+=	salt
 SUBDIR+=	salt-docs
 SUBDIR+=	same
+SUBDIR+=	sandboxctl
 SUBDIR+=	sarah
 SUBDIR+=	screenbrightness
 SUBDIR+=	screenfetch
@@ -612,7 +616,6 @@ SUBDIR+=	wbm-mount
 SUBDIR+=	wbm-mysql
 SUBDIR+=	wbm-net
 SUBDIR+=	wbm-openslp
-SUBDIR+=	wbm-passwd
 SUBDIR+=	wbm-postfix
 SUBDIR+=	wbm-postgresql
 SUBDIR+=	wbm-qmailadmin

@@ -1,7 +1,7 @@
-# $NetBSD: options.mk,v 1.5 2016/12/01 11:08:56 martin Exp $
+# $NetBSD: options.mk,v 1.7 2017/02/03 17:10:49 maya Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gstreamer
-PKG_SUPPORTED_OPTIONS=	gstreamer-gstcheck introspection
+PKG_SUPPORTED_OPTIONS=	gstreamer-gstcheck introspection gstreamer-ptp-suid
 PKG_SUGGESTED_OPTIONS=	introspection
 
 .include "../../mk/bsd.options.mk"
@@ -21,4 +21,11 @@ CONFIGURE_ARGS+=--disable-check
 PLIST.introspection=yes
 .else
 CONFIGURE_ARGS+=--disable-introspection
+.endif
+
+.if !empty(PKG_OPTIONS:Mgstreamer-ptp-suid)
+SPECIAL_PERMS+=		libexec/gstreamer-1.0/gst-ptp-helper ${SETUID_ROOT_PERMS}
+CONFIGURE_ARGS+=	--with-ptp-helper-permissions=setuid-root
+.else
+CONFIGURE_ARGS+=	--with-ptp-helper-permissions=none
 .endif

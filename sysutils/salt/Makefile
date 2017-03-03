@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.44 2017/01/01 14:43:58 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2017/03/03 09:29:48 sborrill Exp $
 
-DISTNAME=	salt-2016.3.3
+DISTNAME=	salt-2016.11.3
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_PYPI:=s/salt/}
 
@@ -24,15 +24,14 @@ BUILD_DEFS+=	VARBASE
 
 PYTHON_VERSIONS_INCOMPATIBLE=	34 35 36 # py-m2crypto
 
-PYSETUPINSTALLARGS+=	--salt-root-dir=${PREFIX}
-PYSETUPINSTALLARGS+=	--salt-config-dir=${PKG_SYSCONFDIR}
-PYSETUPINSTALLARGS+=	--salt-cache-dir=${VARBASE}/cache/salt
-PYSETUPINSTALLARGS+=	--salt-sock-dir=${VARBASE}/run/salt
-PYSETUPINSTALLARGS+=	--salt-base-file-roots-dir=${PKG_SYSCONFDIR}/states
-PYSETUPINSTALLARGS+=	--salt-base-pillar-roots-dir=${PKG_SYSCONFDIR}/pillar
-PYSETUPINSTALLARGS+=	--salt-base-master-roots-dir=${PKG_SYSCONFDIR}/salt-master
-PYSETUPINSTALLARGS+=	--salt-logs-dir=${VARBASE}/log/salt
-PYSETUPINSTALLARGS+=	--salt-pidfile-dir=${VARBASE}/run
+PYSETUPARGS+=	--salt-config-dir=${PKG_SYSCONFDIR}
+PYSETUPARGS+=	--salt-cache-dir=${VARBASE}/cache/salt
+PYSETUPARGS+=	--salt-sock-dir=${VARBASE}/run/salt
+PYSETUPARGS+=	--salt-base-file-roots-dir=${VARBASE}/salt/file-roots
+PYSETUPARGS+=	--salt-base-pillar-roots-dir=${VARBASE}/salt/pillar-roots
+PYSETUPARGS+=	--salt-base-master-roots-dir=${VARBASE}/salt/master-roots
+PYSETUPARGS+=	--salt-logs-dir=${VARBASE}/log/salt
+PYSETUPARGS+=	--salt-pidfile-dir=${VARBASE}/run
 
 REPLACE_PYTHON=		*.py */*.py */*/*.py
 REPLACE_SH=		salt/templates/git/ssh-id-wrapper
@@ -48,8 +47,9 @@ INSTALLATION_DIRS+= 	${EGDIR}
 CONF_FILES+=		${EGDIR}/master ${PKG_SYSCONFDIR}/master
 CONF_FILES+=		${EGDIR}/minion ${PKG_SYSCONFDIR}/minion
 
-OWN_DIRS+=		${PKG_SYSCONFDIR}/states ${PKG_SYSCONFDIR}/pillar
-OWN_DIRS+=		${PKG_SYSCONFDIR}/salt-master
+OWN_DIRS+=		${VARBASE}/salt/file-roots
+OWN_DIRS+=		${VARBASE}/salt/pillar-roots
+OWN_DIRS+=		${VARBASE}/salt/master-roots
 OWN_DIRS+=		${VARBASE}/cache/salt ${VARBASE}/run/salt
 OWN_DIRS+=		${VARBASE}/log/salt
 
@@ -60,8 +60,8 @@ SUBST_FILES.fix-paths=	conf/*
 SUBST_FILES.fix-paths+=	doc/man/* salt/modules/munin.py setup.py
 SUBST_FILES.fix-paths+=	salt/utils/rsax931.py salt/grains/core.py
 SUBST_SED.fix-paths=	-e 's,/etc/salt,${PKG_SYSCONFDIR},g'
-SUBST_SED.fix-paths+=	-e 's,/srv/salt,${PKG_SYSCONFDIR}/states,g'
-SUBST_SED.fix-paths+=	-e 's,/srv/pillar,${PKG_SYSCONFDIR}/pillar,g'
+SUBST_SED.fix-paths+=	-e 's,/srv/salt,${VARBASE}/salt/file-roots,g'
+SUBST_SED.fix-paths+=	-e 's,/srv/pillar,${VARBASE}/salt/pillar-roots,g'
 SUBST_SED.fix-paths+=	-e 's,/etc/munin,${PKG_SYSCONFBASEDIR}/munin,g'
 SUBST_SED.fix-paths+=	-e 's,share/man,${PKGMANDIR},g'
 SUBST_SED.fix-paths+=	-e 's,/opt/local/lib,${PREFIX}/lib,g'
