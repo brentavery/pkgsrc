@@ -25,6 +25,16 @@ CONFIGURE_ARGS+=	--disable-nls
 
 CONFIGURE_ARGS+=	--htmldir=${PREFIX}/share/doc/libiconv
 
+# Explicitly override iconv checks, as GNU libiconv will change its own
+# signature based on whether it finds itself already installed somewhere (?!)
+# which then breaks software which assumes its native signature.
+#
+# Restricted to SunOS for now, but likely will be useful everywhere.
+#
+CONFIGURE_ENV.SunOS+=	am_cv_func_iconv=yes
+CONFIGURE_ENV.SunOS+=	am_cv_proto_iconv_arg1='const'
+CONFIGURE_ENV.SunOS+=	am_cv_proto_iconv='extern size_t iconv (iconv_t cd, const char * *inbuf, size_t *inbytesleft, char * *outbuf, size_t *outbytesleft);'
+
 TEST_TARGET=		check
 
 EGDIR=			${PREFIX}/share/examples/libiconv
