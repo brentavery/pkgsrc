@@ -1,0 +1,8 @@
+$NetBSD$
+
+SHA1 (kea-1.1.0.tar.gz) = 35cce47c3768cfdb27bec0e248b32b5804ca10f6
+RMD160 (kea-1.1.0.tar.gz) = f9fcbfabb9d3e21a153cf211e36dd0eb9c7ab92e
+SHA512 (kea-1.1.0.tar.gz) = 4ccc2ac493e8ce31d8a0574acac430137965aef11c7dd98a5e11ee88a157503a6efbdbf39e89b04cf7349474051affa993dd0aa65420bd783209e0a8a1d253ea
+Size (kea-1.1.0.tar.gz) = 4934875 bytes
+SHA1 (patch-configure) = 1e46db4390d78ad0b5daee002bf3cea3a93690aa
+SHA1 (patch-iface_mgr_sun.cc) = f22e4451c930aeee1c3075adb277dcb96271d695

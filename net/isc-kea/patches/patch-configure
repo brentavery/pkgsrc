@@ -1,0 +1,18 @@
+$NetBSD$
+
+--- configure.orig	2016-09-28 13:28:41.000000000 +0000
++++ configure
+@@ -18927,11 +18927,11 @@ test -n "$YACC" || YACC="yacc"
+ 
+ if test "x$enable_generate_parser" != "xno"; then
+ 
+-    if test "x$LEX" == "x"; then
++    if test "x$LEX" = "x"; then
+        as_fn_error $? "Flex is required for enable-generate-parser, but was not found" "$LINENO" 5
+     fi
+ 
+-    if test "x$YACC" == "x"; then
++    if test "x$YACC" = "x"; then
+        as_fn_error $? "Bison is required for enable-generate-parser, but was not found" "$LINENO" 5
+     fi
+ 
